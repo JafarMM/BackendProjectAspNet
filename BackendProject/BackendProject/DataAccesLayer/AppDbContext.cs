@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BackendProject.DataAccesLayer
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -17,5 +17,6 @@ namespace BackendProject.DataAccesLayer
         public DbSet<Bio> Bio { get; set; }
         public DbSet<Slider> Slider { get; set; }
         public DbSet<About> About { get; set; }
+        public DbSet<CoursesArea> CoursesArea {get; set;}
     }
 }

@@ -25,12 +25,14 @@ namespace BackendProject.Controllers
         {
             var slider = _dbContext.Slider.ToList();
             var about = _dbContext.About.FirstOrDefault();
+            var coursesabout = _dbContext.CoursesArea.ToList();
 
 
             var homeViewModel = new HomeViewModel
             {
                 Slider = slider,
-                about=about
+                about=about,
+                CoursesAreas=coursesabout
             };
 
             return View(homeViewModel);
