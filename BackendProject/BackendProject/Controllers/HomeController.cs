@@ -1,5 +1,6 @@
 ﻿using BackendProject.DataAccesLayer;
 using BackendProject.Models;
+using BackendProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,8 +23,17 @@ namespace BackendProject.Controllers
 
         public IActionResult Index()
         {
-            
-            return View();
+            var slider = _dbContext.Slider.ToList();
+            var about = _dbContext.About.FirstOrDefault();
+
+
+            var homeViewModel = new HomeViewModel
+            {
+                Slider = slider,
+                about=about
+            };
+
+            return View(homeViewModel);
         }
 
         public IActionResult Privacy()

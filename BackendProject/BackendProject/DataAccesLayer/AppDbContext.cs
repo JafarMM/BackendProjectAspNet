@@ -16,5 +16,6 @@ namespace BackendProject.DataAccesLayer
 
         public DbSet<Bio> Bio { get; set; }
         public DbSet<Slider> Slider { get; set; }
+        public DbSet<About> About { get; set; }
     }
 }
