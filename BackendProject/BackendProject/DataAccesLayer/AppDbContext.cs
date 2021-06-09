@@ -21,5 +21,6 @@ namespace BackendProject.DataAccesLayer
         public DbSet<UpCommingEvents> UpCommingEvents { get; set; }
         public DbSet<Testimonial> Testimonial { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
     }
 }
