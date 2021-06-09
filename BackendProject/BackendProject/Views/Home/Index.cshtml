@@ -64,25 +64,7 @@
 </div>
 <!-- Service End -->
 <!-- About Start -->
-<div class="about-area pb-155">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="about-content">
-                    <h2>@Html.Raw(homeViewModel.about.Title)</h2>
-                    <p>@homeViewModel.about.Description</p>
-                    <p class="hidden-sm">@homeViewModel.about.Description</p>
-                    <a class="default-btn" href="about.html">view courses</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="about-img">
-                    <img src="img/about/@homeViewModel.about.Image" alt="about">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync("About")
 <!-- About End -->
 <!-- Courses Area Start -->
 <div class="courses-area two pt-150 pb-150 text-center">
@@ -195,22 +177,22 @@
                         @Html.Raw("</div>");
                         @Html.Raw("<div class='col-md-6 col-sm-12 col-xs-12'>");
                     }
-                 <div class="single-event mb-35">
-                    <div class="event-img">
-                        <a href="event-details.html"><img src="img/event/@item.Image" alt="event"></a>
-                    </div>
-                    <div class="event-content text-left">
-                        <h3>@item.Date</h3>
-                        <h4><a href="event-details.html">@item.CourseName</a></h4>
-                        <ul>
-                            <li><i class="fa fa-clock-o"></i>@item.Time</li>
-                            <li><i class="fa fa-map-marker"></i>@item.City</li>
-                        </ul>
-                        <div class="event-content-right">
-                            <a class="default-btn" href="event-details.html">join now</a>
+                    <div class="single-event mb-35">
+                        <div class="event-img">
+                            <a href="event-details.html"><img src="img/event/@item.Image" alt="event"></a>
+                        </div>
+                        <div class="event-content text-left">
+                            <h3>@item.Date</h3>
+                            <h4><a href="event-details.html">@item.CourseName</a></h4>
+                            <ul>
+                                <li><i class="fa fa-clock-o"></i>@item.Time</li>
+                                <li><i class="fa fa-map-marker"></i>@item.City</li>
+                            </ul>
+                            <div class="event-content-right">
+                                <a class="default-btn" href="event-details.html">join now</a>
+                            </div>
                         </div>
                     </div>
-                </div>
                     count++;
                 }
                 @Html.Raw("</div>");

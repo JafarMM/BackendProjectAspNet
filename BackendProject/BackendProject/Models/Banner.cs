@@ -9,6 +9,6 @@ namespace BackendProject.Models
     {
         public int Id { get; set; }
         public int Backgroundimage { get; set; }
-
+        public string Title { get; set; }
     }
 }
