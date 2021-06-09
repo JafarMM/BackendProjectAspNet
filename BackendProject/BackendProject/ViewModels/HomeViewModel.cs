@@ -13,5 +13,6 @@ namespace BackendProject.ViewModels
         public List<CoursesArea> CoursesAreas { get; set; }
         public List<UpCommingEvents> UpCommingEvents { get; set; }
         public Testimonial Testimonial { get; set; }
+        public List<Blog> Blogs { get; set; }
     }
 }
