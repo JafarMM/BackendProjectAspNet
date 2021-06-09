@@ -11,5 +11,6 @@ namespace BackendProject.ViewModels
         public List<Slider> Slider { get; set; }
         public About about { get; set; }
         public List<CoursesArea> CoursesAreas { get; set; }
+        public List<UpCommingEvents> UpCommingEvents { get; set; }
     }
 }

@@ -6,6 +6,7 @@
 @{
     ViewData["Title"] = "Home Page";
     HomeViewModel homeViewModel = Model;
+    int count = 0;
 }
 
 <!-- Background Area Start -->
@@ -182,73 +183,37 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="single-event mb-35">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                @foreach (var item in homeViewModel.UpCommingEvents)
+                {
+                    if (count == 0)
+                    {
+                        @Html.Raw("<div class='col-md-6 col-sm-12 col-xs-12'>");
+                    }
+                    else if (count % 2 == 0)
+                    {
+                        @Html.Raw("</div>");
+                        @Html.Raw("<div class='col-md-6 col-sm-12 col-xs-12'>");
+                    }
+                 <div class="single-event mb-35">
                     <div class="event-img">
-                        <a href="event-details.html"><img src="img/event/event1.jpg" alt="event"></a>
+                        <a href="event-details.html"><img src="img/event/@item.Image" alt="event"></a>
                     </div>
                     <div class="event-content text-left">
-                        <h3>20 June 2017</h3>
-                        <h4><a href="event-details.html">ADVANCE PHP WORKSHOP</a></h4>
+                        <h3>@item.Date</h3>
+                        <h4><a href="event-details.html">@item.CourseName</a></h4>
                         <ul>
-                            <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                            <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                            <li><i class="fa fa-clock-o"></i>@item.Time</li>
+                            <li><i class="fa fa-map-marker"></i>@item.City</li>
                         </ul>
                         <div class="event-content-right">
                             <a class="default-btn" href="event-details.html">join now</a>
                         </div>
                     </div>
                 </div>
-                <div class="single-event hidden-sm hidden-xs">
-                    <div class="event-img">
-                        <a href="event-details.html"><img src="img/event/event3.jpg" alt="event"></a>
-                    </div>
-                    <div class="event-content text-left">
-                        <h3>16 June 2017</h3>
-                        <h4><a href="event-details.html">learning english history</a></h4>
-                        <ul>
-                            <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                            <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                        </ul>
-                        <div class="event-content-right">
-                            <a class="default-btn" href="event-details.html">join now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="single-event mb-35">
-                    <div class="event-img">
-                        <a href="event-details.html"><img src="img/event/event2.jpg" alt="event"></a>
-                    </div>
-                    <div class="event-content text-left">
-                        <h3>18 June 2017</h3>
-                        <h4><a href="event-details.html">DIGITAL MARKETING ANALYSIS</a></h4>
-                        <ul>
-                            <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                            <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                        </ul>
-                        <div class="event-content-right">
-                            <a class="default-btn" href="event-details.html">join now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="single-event hidden-sm hidden-xs">
-                    <div class="event-img">
-                        <a href="event-details.html"><img src="img/event/event3.jpg" alt="event"></a>
-                    </div>
-                    <div class="event-content text-left">
-                        <h3>14 June 2017</h3>
-                        <h4><a href="event-details.html">UI & UX DESIGNER MEETUP</a></h4>
-                        <ul>
-                            <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                            <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                        </ul>
-                        <div class="event-content-right">
-                            <a class="default-btn" href="event-details.html">join now</a>
-                        </div>
-                    </div>
-                </div>
+                    count++;
+                }
+                @Html.Raw("</div>");
             </div>
         </div>
     </div>
