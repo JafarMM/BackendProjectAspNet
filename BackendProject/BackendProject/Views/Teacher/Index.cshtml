@@ -1,0 +1,23 @@
+﻿@using BackendProject
+@using BackendProject.ViewModels
+@using BackendProject.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="teacher-area pb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="section-title text-center">
+                    <img src="img/icon/section.png" alt="title">
+                    <h2>meet our teachers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @await Component.InvokeAsync("Teachers")
+        </div>
+    </div>
+</div>

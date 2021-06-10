@@ -879,6 +879,28 @@ textarea {
     padding: 0 40px 0 10px;
     width: 100%;
 }
+
+.fa-search {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+#input-search {
+    border: none;
+}
+
+#input-search:focus {
+    outline: none;
+}
+.search ul {
+    visibility: visible;
+    opacity: 1;
+    top: 100px;
+    display: none;
+}
+.search ul li i {
+    font-size: 14px !important;
+}
+
 #search-form > input::-moz-placeholder {color: #252525;} 
 #search-form > input::-webkit-input-placeholder {color: #252525;}
 #search-form > button {
