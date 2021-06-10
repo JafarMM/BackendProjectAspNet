@@ -8,6 +8,7 @@ namespace BackendProject.Models
     public class EventDetails
     {
         public int Id { get; set; }
-
+        public String Description { get; set; }
+        public ICollection<SpeakerEventDetails> SpeakerEventDetails { get; set; }
     }
 }
