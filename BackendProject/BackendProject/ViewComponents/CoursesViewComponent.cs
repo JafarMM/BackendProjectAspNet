@@ -6,21 +6,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BackendProject.Controllers
+namespace BackendProject.ViewComponents
 {
-    public class EventController : Controller
+    public class CoursesViewComponent:ViewComponent
     {
         private readonly AppDbContext _dbContext;
 
-        public EventController(AppDbContext dbContext)
+        public CoursesViewComponent(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var events = _dbContext.UpCommingEvents.Include(x=> x.SpeakerEventDetails).ToList();
-            return View(events);
+            var courses = await _dbContext.CoursesArea.ToListAsync();
+
+            return View(courses);
         }
     }
 }

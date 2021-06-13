@@ -10,9 +10,11 @@ namespace BackendProject.ViewModels
     {
         public List<Slider> Slider { get; set; }
         public About about { get; set; }
-        public List<CoursesArea> CoursesAreas { get; set; }
         public List<UpCommingEvents> UpCommingEvents { get; set; }
+        public List<CoursesArea> coursesAreas { get; set; }
+        public CourseDetail CourseDetail { get; set; }
         public Testimonial Testimonial { get; set; }
         public List<Blog> Blogs { get; set; }
+        public Banner Banner { get; set; }
     }
 }

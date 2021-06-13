@@ -1,0 +1,28 @@
+﻿@model List<CoursesArea>
+@using BackendProject
+@using BackendProject.ViewModels
+@using BackendProject.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="single-course">
+                <div class="course-img">
+                    <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">
+                        <img src="~/img/course/@item.Image" alt="course">
+                        <div class="course-hover">
+                            <i class="fa fa-link"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="course-content">
+                    <h3><a href="course-details.html">@item.Title</a></h3>
+                    <p>@item.Description</p>
+                    <a class="default-btn" href="course-details.html">read more</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

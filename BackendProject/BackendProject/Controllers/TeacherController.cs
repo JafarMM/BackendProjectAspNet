@@ -19,8 +19,9 @@ namespace BackendProject.Controllers
 
         public IActionResult Index()
         {
-            var teacher = _dbContext.Teachers.Include(x => x.SocialMedias).Include(x=> x.TeacherDetails).ToList();
+            var teacher = _dbContext.Teachers.Include(x => x.SocialMedias).Include(x=> x.TeacherDetails).Include(x=> x.Position).ToList();
             return View(teacher);
         }
+        
     }
 }

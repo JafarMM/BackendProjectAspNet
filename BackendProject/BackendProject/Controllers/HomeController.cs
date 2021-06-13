@@ -26,18 +26,20 @@ namespace BackendProject.Controllers
         {
             var slider = _dbContext.Slider.ToList();
             var about = _dbContext.About.FirstOrDefault();
-            var coursesabout = _dbContext.CoursesArea.ToList();
+            var coursesabout = _dbContext.CoursesArea.Take(3).ToList();
             var upcommingevents = _dbContext.UpCommingEvents.ToList();
             var testimonial = _dbContext.Testimonial.FirstOrDefault();
             var blogs = _dbContext.Blogs.ToList();
+            var banner = _dbContext.Banner.FirstOrDefault();
             var homeViewModel = new HomeViewModel
             {
                 Slider = slider,
                 about=about,
-                CoursesAreas=coursesabout,
+                coursesAreas=coursesabout,
                 UpCommingEvents=upcommingevents,
                 Testimonial=testimonial,
-                Blogs=blogs
+                Blogs=blogs,
+                Banner=banner
             };
 
             return View(homeViewModel);
