@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210609172941_NewTables")]
-    partial class NewTables
+    [Migration("20210613172729_NewStrongChangings")]
+    partial class NewStrongChangings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,24 @@ namespace BackendProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("About");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Backgroundimage")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banner");
                 });
 
             modelBuilder.Entity("BackendProject.Models.Bio", b =>
@@ -114,6 +132,78 @@ namespace BackendProject.Migrations
                     b.ToTable("Blogs");
                 });
 
+            modelBuilder.Entity("BackendProject.Models.BlogDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId")
+                        .IsUnique();
+
+                    b.ToTable("blogDetails");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.CourseDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AboutCourse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Assesment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Certification")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClassDuration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoursesAreaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HowToApply")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SkillLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Students")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoursesAreaId")
+                        .IsUnique();
+
+                    b.ToTable("CourseDetail");
+                });
+
             modelBuilder.Entity("BackendProject.Models.CoursesArea", b =>
                 {
                     b.Property<int>("Id")
@@ -133,6 +223,27 @@ namespace BackendProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CoursesArea");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.EventDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UpCommingEventsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UpCommingEventsId")
+                        .IsUnique();
+
+                    b.ToTable("EventDetails");
                 });
 
             modelBuilder.Entity("BackendProject.Models.Position", b =>
@@ -171,15 +282,81 @@ namespace BackendProject.Migrations
                     b.ToTable("Slider");
                 });
 
-            modelBuilder.Entity("BackendProject.Models.Teacher", b =>
+            modelBuilder.Entity("BackendProject.Models.SocialMedia", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FacebookProfile")
+                    b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("SocialMedia");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.Speaker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Speakers");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.SpeakerEventDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SpeakerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpCommingEventsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpeakerId");
+
+                    b.HasIndex("UpCommingEventsId");
+
+                    b.ToTable("SpeakerEventDetails");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -190,17 +367,8 @@ namespace BackendProject.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PinterestProfile")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("PositionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TwitterProfile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VimeProfile")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -290,8 +458,8 @@ namespace BackendProject.Migrations
                     b.Property<string>("CourseName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -302,6 +470,69 @@ namespace BackendProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UpCommingEvents");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.BlogDetails", b =>
+                {
+                    b.HasOne("BackendProject.Models.Blog", "Blog")
+                        .WithOne("BlogDetails")
+                        .HasForeignKey("BackendProject.Models.BlogDetails", "BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.CourseDetail", b =>
+                {
+                    b.HasOne("BackendProject.Models.CoursesArea", "CoursesArea")
+                        .WithOne("CourseDetail")
+                        .HasForeignKey("BackendProject.Models.CourseDetail", "CoursesAreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CoursesArea");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.EventDetails", b =>
+                {
+                    b.HasOne("BackendProject.Models.UpCommingEvents", "UpCommingEvents")
+                        .WithOne("EventDetails")
+                        .HasForeignKey("BackendProject.Models.EventDetails", "UpCommingEventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UpCommingEvents");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.SocialMedia", b =>
+                {
+                    b.HasOne("BackendProject.Models.Teacher", "Teacher")
+                        .WithMany("SocialMedias")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.SpeakerEventDetails", b =>
+                {
+                    b.HasOne("BackendProject.Models.Speaker", "Speaker")
+                        .WithMany("SpeakerEventDetails")
+                        .HasForeignKey("SpeakerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BackendProject.Models.UpCommingEvents", "UpCommingEvents")
+                        .WithMany("SpeakerEventDetails")
+                        .HasForeignKey("UpCommingEventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Speaker");
+
+                    b.Navigation("UpCommingEvents");
                 });
 
             modelBuilder.Entity("BackendProject.Models.Teacher", b =>
@@ -324,14 +555,38 @@ namespace BackendProject.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("BackendProject.Models.Blog", b =>
+                {
+                    b.Navigation("BlogDetails");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.CoursesArea", b =>
+                {
+                    b.Navigation("CourseDetail");
+                });
+
             modelBuilder.Entity("BackendProject.Models.Position", b =>
                 {
                     b.Navigation("Teachers");
                 });
 
+            modelBuilder.Entity("BackendProject.Models.Speaker", b =>
+                {
+                    b.Navigation("SpeakerEventDetails");
+                });
+
             modelBuilder.Entity("BackendProject.Models.Teacher", b =>
                 {
+                    b.Navigation("SocialMedias");
+
                     b.Navigation("TeacherDetails");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.UpCommingEvents", b =>
+                {
+                    b.Navigation("EventDetails");
+
+                    b.Navigation("SpeakerEventDetails");
                 });
 #pragma warning restore 612, 618
         }

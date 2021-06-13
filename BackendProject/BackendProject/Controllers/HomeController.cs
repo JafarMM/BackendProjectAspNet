@@ -27,7 +27,7 @@ namespace BackendProject.Controllers
             var slider = _dbContext.Slider.ToList();
             var about = _dbContext.About.FirstOrDefault();
             var coursesabout = _dbContext.CoursesArea.Take(3).ToList();
-            var upcommingevents = _dbContext.UpCommingEvents.ToList();
+            var upcommingevents = _dbContext.UpCommingEvents.Take(4).ToList();
             var testimonial = _dbContext.Testimonial.FirstOrDefault();
             var blogs = _dbContext.Blogs.ToList();
             var banner = _dbContext.Banner.FirstOrDefault();
@@ -39,7 +39,8 @@ namespace BackendProject.Controllers
                 UpCommingEvents=upcommingevents,
                 Testimonial=testimonial,
                 Blogs=blogs,
-                Banner=banner
+                Banner=banner,
+                 
             };
 
             return View(homeViewModel);

@@ -25,6 +25,8 @@ namespace BackendProject.DataAccesLayer
         public DbSet<Banner> Banner { get; set; }
         public DbSet<CourseDetail> CourseDetail { get; set; }
         public DbSet<BlogDetails> blogDetails { get; set; }
-        public DbSet<EventDetails> eventDetails { get; set; }
+        public DbSet<EventDetails> EventDetails { get; set; }
+        public DbSet<Speaker> Speakers { get; set; }
+        public DbSet<SpeakerEventDetails> SpeakerEventDetails { get; set; }
     }
 }

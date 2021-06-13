@@ -24,9 +24,17 @@ namespace BackendProject.Controllers
 
             return View(courses);
         }
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            var courseDetail = _dbContext.CourseDetail.Include(x=> x.CoursesArea).FirstOrDefault();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var courseDetail = _dbContext.CourseDetail.Include(x=> x.CoursesArea).FirstOrDefault(x=> x.CoursesAreaId==id);
+            if (courseDetail == null)
+            {
+                return NotFound();
+            }
             return View(courseDetail);
         }
     }

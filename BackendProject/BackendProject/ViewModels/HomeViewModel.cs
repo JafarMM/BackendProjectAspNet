@@ -16,5 +16,6 @@ namespace BackendProject.ViewModels
         public Testimonial Testimonial { get; set; }
         public List<Blog> Blogs { get; set; }
         public Banner Banner { get; set; }
+      
     }
 }

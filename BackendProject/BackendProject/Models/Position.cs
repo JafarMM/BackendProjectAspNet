@@ -9,7 +9,6 @@ namespace BackendProject.Models
     {
         public int Id { get; set; }
         public string PositionName { get; set; }
-
         public ICollection<Teacher> Teachers { get; set; }
          
     }

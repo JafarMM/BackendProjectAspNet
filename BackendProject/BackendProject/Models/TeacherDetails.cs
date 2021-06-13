@@ -15,8 +15,14 @@ namespace BackendProject.Models
         public string Description { get; set; }
         public string Degree { get; set; }
         public long Experience { get; set; }
+        public string Hobbies { get; set; }
         public string Faculty { get; set; }
         public int SkillPercent { get; set; }
+        public int SkillPercentDesign { get; set; }
+        public int SkillPercentTeamLeader { get; set; }
+        public int SkillPercentInnovation { get; set; }
+        public int SkillPercentDevolopment { get; set; }
+        public int SkillPercentCommunication { get; set; }
         [ForeignKey("Teacher")]
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210610170922_NewChangesontable")]
-    partial class NewChangesontable
+    [Migration("20210613204020_NewChangings003")]
+    partial class NewChangings003
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,24 @@ namespace BackendProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("About");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Backgroundimage")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banner");
                 });
 
             modelBuilder.Entity("BackendProject.Models.Bio", b =>
@@ -124,7 +142,7 @@ namespace BackendProject.Migrations
                     b.Property<int>("BlogId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -132,7 +150,7 @@ namespace BackendProject.Migrations
                     b.HasIndex("BlogId")
                         .IsUnique();
 
-                    b.ToTable("BlogDetails");
+                    b.ToTable("blogDetails");
                 });
 
             modelBuilder.Entity("BackendProject.Models.CourseDetail", b =>
@@ -217,7 +235,13 @@ namespace BackendProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UpCommingEventsId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UpCommingEventsId")
+                        .IsUnique();
 
                     b.ToTable("EventDetails");
                 });
@@ -284,6 +308,30 @@ namespace BackendProject.Migrations
                     b.ToTable("SocialMedia");
                 });
 
+            modelBuilder.Entity("BackendProject.Models.Speaker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Speakers");
+                });
+
             modelBuilder.Entity("BackendProject.Models.SpeakerEventDetails", b =>
                 {
                     b.Property<int>("Id")
@@ -291,7 +339,7 @@ namespace BackendProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EventDetailsId")
+                    b.Property<int>("SpeakerId")
                         .HasColumnType("int");
 
                     b.Property<int>("UpCommingEventsId")
@@ -299,7 +347,7 @@ namespace BackendProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventDetailsId");
+                    b.HasIndex("SpeakerId");
 
                     b.HasIndex("UpCommingEventsId");
 
@@ -351,6 +399,9 @@ namespace BackendProject.Migrations
                     b.Property<string>("Faculty")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Hobbies")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -361,6 +412,21 @@ namespace BackendProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SkillPercent")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillPercentCommunication")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillPercentDesign")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillPercentDevolopment")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillPercentInnovation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillPercentTeamLeader")
                         .HasColumnType("int");
 
                     b.Property<int>("TeacherId")
@@ -449,6 +515,17 @@ namespace BackendProject.Migrations
                     b.Navigation("CoursesArea");
                 });
 
+            modelBuilder.Entity("BackendProject.Models.EventDetails", b =>
+                {
+                    b.HasOne("BackendProject.Models.UpCommingEvents", "UpCommingEvents")
+                        .WithOne("EventDetails")
+                        .HasForeignKey("BackendProject.Models.EventDetails", "UpCommingEventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UpCommingEvents");
+                });
+
             modelBuilder.Entity("BackendProject.Models.SocialMedia", b =>
                 {
                     b.HasOne("BackendProject.Models.Teacher", "Teacher")
@@ -462,9 +539,9 @@ namespace BackendProject.Migrations
 
             modelBuilder.Entity("BackendProject.Models.SpeakerEventDetails", b =>
                 {
-                    b.HasOne("BackendProject.Models.EventDetails", "EventDetails")
+                    b.HasOne("BackendProject.Models.Speaker", "Speaker")
                         .WithMany("SpeakerEventDetails")
-                        .HasForeignKey("EventDetailsId")
+                        .HasForeignKey("SpeakerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -474,7 +551,7 @@ namespace BackendProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EventDetails");
+                    b.Navigation("Speaker");
 
                     b.Navigation("UpCommingEvents");
                 });
@@ -509,14 +586,14 @@ namespace BackendProject.Migrations
                     b.Navigation("CourseDetail");
                 });
 
-            modelBuilder.Entity("BackendProject.Models.EventDetails", b =>
-                {
-                    b.Navigation("SpeakerEventDetails");
-                });
-
             modelBuilder.Entity("BackendProject.Models.Position", b =>
                 {
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("BackendProject.Models.Speaker", b =>
+                {
+                    b.Navigation("SpeakerEventDetails");
                 });
 
             modelBuilder.Entity("BackendProject.Models.Teacher", b =>
@@ -528,6 +605,8 @@ namespace BackendProject.Migrations
 
             modelBuilder.Entity("BackendProject.Models.UpCommingEvents", b =>
                 {
+                    b.Navigation("EventDetails");
+
                     b.Navigation("SpeakerEventDetails");
                 });
 #pragma warning restore 612, 618
