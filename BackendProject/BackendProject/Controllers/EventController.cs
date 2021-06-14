@@ -23,13 +23,13 @@ namespace BackendProject.Controllers
             return View(events);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var eventDetail = _dbContext.EventDetails.Include(x=> x.UpCommingEvents).FirstOrDefault(x => x.UpCommingEventsId == id);
+            var eventDetail = _dbContext.EventDetails.Include(x=> x.UpCommingEvents).ThenInclude(x=> x.SpeakerEventDetails).ThenInclude(x=> x.Speaker).FirstOrDefault(x => x.UpCommingEventsId == id);
         
             if (eventDetail == null)
             {
@@ -37,7 +37,7 @@ namespace BackendProject.Controllers
             }
             return View(eventDetail);
         }
-        public IActionResult SpeakerEventDetails(int id)
+        public IActionResult SpeakerEventDetails(int? id)
         {
             if (id == null)
             {

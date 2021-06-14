@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    CourseDetail courseDetail = Model;
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">@courseDetail.CoursesArea.Title</h4>
+                <p>
+                    <img src="~/img/course/@courseDetail.CoursesArea.Image" alt="course">
+                </p>
+                <p>
+                    Price : @courseDetail.Price $
+                </p>
+                <p>
+                    Language : @courseDetail.Language
+                </p>
+                <p>
+                    Course Duration : @courseDetail.Duration Month
+                </p>
+                <p>
+                    Students : @courseDetail.Students
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

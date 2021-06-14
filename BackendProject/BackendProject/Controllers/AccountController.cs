@@ -12,15 +12,40 @@ namespace BackendProject.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
-
-        public AccountController(UserManager<User> userManager)
+        private readonly SignInManager<User> _signInManager;
+        public AccountController(UserManager<User> userManager,SignInManager<User> signInManager) 
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel login)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var existUser = await _userManager.FindByEmailAsync(login.Email);
+            if (existUser == null)
+            {
+                ModelState.AddModelError("", "Email or password is invalid");
+                return View();
+            }
+
+            var loginResult = await _signInManager.PasswordSignInAsync(existUser, login.Password, true, true);
+            if (!loginResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Email or password is invalid");
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Register()
         {
@@ -56,11 +81,19 @@ namespace BackendProject.Controllers
                 foreach (var error in identityResult.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
-                    return View();
+                     
                 }
+                return View();
             }
+            await _signInManager.SignInAsync(newUser, true);
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Home");
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

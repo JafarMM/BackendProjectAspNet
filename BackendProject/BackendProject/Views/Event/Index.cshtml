@@ -1,11 +1,8 @@
-﻿@using BackendProject
-@using BackendProject.ViewModels
-@using BackendProject.Models
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿
 
 @{
     ViewData["Title"] = "Index";
-    HomeViewModel homeViewModel = Model;
+    List<UpCommingEvents> upCommingEvents = Model;
 }
 
 <!-- Banner Area Start -->
@@ -29,7 +26,7 @@
 <div class="event-area three text-center pt-150 pb-150">
     <div class="container">
         <div class="row">
-            @foreach (var item in homeViewModel.UpCommingEvents)
+            @foreach (var item in upCommingEvents)
             {
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-event mb-60">
