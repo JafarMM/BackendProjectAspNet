@@ -30,7 +30,7 @@ namespace BackendProject.Controllers
             var coursesabout = _dbContext.CoursesArea.Take(3).ToList();
             var upcommingevents = _dbContext.UpCommingEvents.Take(4).ToList();
             var testimonial = _dbContext.Testimonial.FirstOrDefault();
-            var blogs = _dbContext.Blogs.ToList();
+            var blogs = _dbContext.Blogs.Take(3).ToList();
             var banner = _dbContext.Banner.FirstOrDefault();
             var homeViewModel = new HomeViewModel
             {
@@ -86,7 +86,7 @@ namespace BackendProject.Controllers
             var isExist = await _dbContext.Subscribes.AnyAsync(x=> x.Email ==email);
             if (isExist)
             {
-                return Content("You are already subscribe Edu Home site")
+                return Content("You are already subscribe Edu Home site");
             }
             Subscribe subscribe = new Subscribe { Email = email };
             await _dbContext.Subscribes.AddAsync(subscribe);

@@ -37,5 +37,17 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             }
             return View(eventDetail);
         }
+        /* public IActionResult Create(){
+         
+        List<Subscribe> subscribes=_dbContext.Subscribes.ToList();
+        string subject="Create event"
+        string url="https ://lo calhost:4431 5/Event/Details/" + Event.Id;
+        string message= $"<a href{url}>New event is created.If you want to show,to click</a>";
+        foreach(Subscribe sub in subscribes{
+
+            await Helper.SendMessage(subject,message,sub.Email);
+
+        }
+          } */
     }
 }

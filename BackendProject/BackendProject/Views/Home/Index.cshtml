@@ -64,7 +64,7 @@
 </div>
 <!-- Service End -->
 <!-- About Start -->
-@await Component.InvokeAsync("About") //("CoursesAres", 6))
+@await Component.InvokeAsync("About")  
 <!-- About End -->
 <!-- Courses Area Start -->
 <div class="courses-area two pt-150 pb-150 text-center">
@@ -216,30 +216,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in homeViewModel.Blogs)
-            {
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-blog">
-
-                        <div class="blog-img">
-                            <a href="blog-details.html"><img src="~/img/blog/@item.Image" alt="blog"></a>
-                            <div class="blog-hover">
-                                <a href="blog-details.html"><i class="fa fa-link"></i></a>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-top">
-                                <p>@item.Name / @item.Date  <i class="fa fa-comments-o"></i> 4</p>
-                            </div>
-                            <div class="blog-bottom">
-                                <h2><a href="blog-details.html">@item.Description</a></h2>
-                                <a href="blog-details.html">read more</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            }
+            @await Component.InvokeAsync("Blog")
         </div>
     </div>
 </div>
