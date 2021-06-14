@@ -23,6 +23,7 @@ namespace BackendProject.DataAccesLayer
         public DbSet<Testimonial> Testimonial { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<TeacherDetails> TeacherDetails { get; set; }
         public DbSet<Banner> Banner { get; set; }
         public DbSet<CourseDetail> CourseDetail { get; set; }
         public DbSet<BlogDetails> blogDetails { get; set; }
