@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BackendProject.Controllers
@@ -68,6 +69,29 @@ namespace BackendProject.Controllers
                 .Where(x => x.Title.ToLower().Contains(search.ToLower())).Take(4).ToList();
 
             return PartialView("_SearchGlobalPartial", courses);
+        }
+
+        public async Task <IActionResult> Subscribe(string email)
+        {
+            if (email == null)
+            {
+                return Content("You must write email address");
+            }
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(email);
+            if (!match.Success)
+            {
+                return Content("It is not email address!");
+            }
+            var isExist = await _dbContext.Subscribes.AnyAsync(x=> x.Email ==email);
+            if (isExist)
+            {
+                return Content("You are already subscribe Edu Home site")
+            }
+            Subscribe subscribe = new Subscribe { Email = email };
+            await _dbContext.Subscribes.AddAsync(subscribe);
+            await _dbContext.SaveChangesAsync();
+                return Content("Congratulations!");
         }
     }
 }
