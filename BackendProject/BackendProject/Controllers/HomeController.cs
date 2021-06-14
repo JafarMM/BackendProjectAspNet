@@ -56,5 +56,18 @@ namespace BackendProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Search(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return Content("Error");
+            }
+
+            var courses = _dbContext.CoursesArea.Include(x => x.CourseDetail).OrderByDescending(x => x.Id)
+                .Where(x => x.Title.ToLower().Contains(search.ToLower())).Take(4).ToList();
+
+            return PartialView("_SearchGlobalPartial", courses);
+        }
     }
 }

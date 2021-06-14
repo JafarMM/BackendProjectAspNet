@@ -15,6 +15,25 @@
 		}
     });
 
+    let search;
+    $(document).on("keyup", "#input-search", function () {
+        search = $(this).val().trim();
+
+        $("#searchResult li").slice(1).remove();
+
+        if (search.length == 0)
+            return;
+
+        $.ajax({
+            url: '/Product/Search?search=' + search,
+            type: "GET",
+            success: function (res) {
+                $("#searchResult").append(res);
+            }
+        });
+    });
+
+
 
 /*------------------------------------
 	jQuery MeanMenu 
