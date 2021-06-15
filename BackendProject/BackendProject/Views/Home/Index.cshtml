@@ -37,32 +37,7 @@
     </div>
 </section>
 <!-- Background Area End -->
-<!-- Service Start -->
-<div class="service-area two pt-150 pb-150">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="single-service">
-                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
-                    <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="single-service">
-                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
-                    <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="single-service">
-                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
-                    <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Service End -->
+
 <!-- About Start -->
 @await Component.InvokeAsync("About")  
 <!-- About End -->
@@ -83,7 +58,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-course">
                         <div class="course-img">
-                            <a href="course-details.html">
+                            <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">
                                 <img src="~/img/course/@item.Image" alt="course">
                                 <div class="course-hover">
                                     <i class="fa fa-link"></i>
@@ -91,9 +66,9 @@
                             </a>
                         </div>
                         <div class="course-content">
-                            <h3><a href="course-details.html">@item.Title</a></h3>
+                            <h3><a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h3>
                             <p>@item.Description</p>
-                            <a class="default-btn" href="course-details.html">read more</a>
+                            <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id" class="default-btn" >read more</a>
                         </div>
                     </div>
                 </div>

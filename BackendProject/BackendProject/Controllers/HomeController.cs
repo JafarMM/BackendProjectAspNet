@@ -65,10 +65,27 @@ namespace BackendProject.Controllers
                 return Content("Error");
             }
 
-            var courses = _dbContext.CoursesArea.Include(x => x.CourseDetail).OrderByDescending(x => x.Id)
-                .Where(x => x.Title.ToLower().Contains(search.ToLower())).Take(4).ToList();
+            var courses = _dbContext.CoursesArea.OrderByDescending(x => x.Id)
+                .Where(x => x.Title.Contains(search.ToLower())).Take(4).ToList();
+            var blogs = _dbContext.Blogs.Include(x => x.BlogDetails).OrderByDescending(x => x.Id)
+                .Where(x => x.Name.ToLower().Contains(search.ToLower())).Take(4).ToList();
+            var teachers = _dbContext.Teachers.Include(x => x.SocialMedias).Include(x => x.TeacherDetails).Include(x => x.Position).OrderByDescending(x => x.Id)
+                .Where(x => x.Name.ToLower().Contains(search.ToLower())).Take(4).ToList();
+            var events = _dbContext.UpCommingEvents.Include(x => x.SpeakerEventDetails).Include(x => x.EventDetails).OrderByDescending(x => x.Id)
+                .Where(x => x.CourseName.ToLower().Contains(search.ToLower())).Take(4).ToList();
 
-            return PartialView("_SearchGlobalPartial", courses);
+            var searchViewModel = new SearchViewModel
+            {
+                
+                Courses=courses,
+                Blogs=blogs,
+                Teachers=teachers,
+                Events=events
+
+            };
+             
+
+            return PartialView("_SearchGlobalPartial", searchViewModel);
         }
 
         public async Task <IActionResult> Subscribe(string email)

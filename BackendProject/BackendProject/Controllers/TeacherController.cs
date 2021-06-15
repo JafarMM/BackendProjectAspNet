@@ -22,6 +22,20 @@ namespace BackendProject.Controllers
             var teacher = _dbContext.Teachers.Include(x => x.SocialMedias).Include(x=> x.TeacherDetails).Include(x=> x.Position).ToList();
             return View(teacher);
         }
-        
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var teacherDetail = _dbContext.TeacherDetails.Include(x => x.Teacher).FirstOrDefault(x => x.TeacherId == id);
+
+            if (teacherDetail == null)
+            {
+                return NotFound();
+            }
+            return View(teacherDetail);
+        }
+
     }
 }

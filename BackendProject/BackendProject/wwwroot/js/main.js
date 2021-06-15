@@ -19,13 +19,13 @@
     $(document).on("keyup", "#input-search", function () {
         search = $(this).val().trim();
 
-        $("#searchResult li").slice(1).remove();
+        $("#searchResult ul").remove();
 
         if (search.length == 0)
             return;
 
         $.ajax({
-            url: '/Product/Search?search=' + search,
+            url: '/Home/Search?search=' + search,
             type: "GET",
             success: function (res) {
                 $("#searchResult").append(res);

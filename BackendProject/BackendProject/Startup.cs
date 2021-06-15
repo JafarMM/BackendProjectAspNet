@@ -1,3 +1,4 @@
+using BackendProject.Data;
 using BackendProject.DataAccesLayer;
 using BackendProject.Models;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +35,12 @@ namespace BackendProject
             services.AddDbContext<AppDbContext>(options =>
             {
 
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(connectionString ,builder =>
+                {
+
+                    builder.MigrationsAssembly(nameof(BackendProject));
+
+                });
 
             });
 
@@ -51,7 +57,7 @@ namespace BackendProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,AppDbContext dbContext ,UserManager<User> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +88,9 @@ namespace BackendProject
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var dataInitializer = new DataInitializer(dbContext ,userManager);
+             dataInitializer.SeeData();
         }
     }
 }

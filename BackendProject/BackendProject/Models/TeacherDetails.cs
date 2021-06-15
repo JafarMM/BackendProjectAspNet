@@ -17,6 +17,9 @@ namespace BackendProject.Models
         public long Experience { get; set; }
         public string Hobbies { get; set; }
         public string Faculty { get; set; }
+        public string Mail { get; set; }
+        public string Phone { get; set; }
+        public string Skype { get; set; }
         public int SkillPercent { get; set; }
         public int SkillPercentDesign { get; set; }
         public int SkillPercentTeamLeader { get; set; }

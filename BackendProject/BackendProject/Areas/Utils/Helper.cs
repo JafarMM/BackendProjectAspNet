@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace BackendProject.Utils
+namespace BackendProject.Areas.AdminPanel.Utils
 {
     public static class Helper
     {

@@ -1,8 +1,25 @@
-﻿@model List<CoursesArea>
+﻿@using BackendProject
+@using BackendProject.Models
+@using BackendProject.ViewModels
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@foreach (CoursesArea courses in Model)
-{
-    <li>
-        <a asp-controller="Courses" asp-action="Details" asp-route-id="@courses.Id">@courses.Title</a>
-    </li>
+@{
+    SearchViewModel searchViewModel = Model;
 }
+@foreach (var item in searchViewModel.Courses)
+{
+    <ul>
+        <li>
+            <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
+        </li>
+    </ul>
+}
+@foreach (var item in searchViewModel.Events)
+{
+    <ul>
+        <li>
+            <a asp-controller="Event" asp-action="Details" asp-route-id="@item.Id">@item.CourseName</a>
+        </li>
+    </ul>
+}
+
