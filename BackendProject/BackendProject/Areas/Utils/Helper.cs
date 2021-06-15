@@ -14,9 +14,9 @@ namespace BackendProject.Areas.AdminPanel.Utils
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
             client.UseDefaultCredentials = false;
             client.EnableSsl = true;
-            client.Credentials = new NetworkCredential("cafarmm@code.edu.az", "adadsadsada");
+            client.Credentials = new NetworkCredential("eduhome48@gmail.com", "eduHome048eduHome");
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            MailMessage message = new MailMessage("cafarmm@code.edu.az", mailTo);
+            MailMessage message = new MailMessage("eduhome48@gmail.com" ,"cafarmm@code.edu.az");
             message.Subject = messageSubject;
             message.Body = messageBody;
             message.BodyEncoding = System.Text.Encoding.UTF8;

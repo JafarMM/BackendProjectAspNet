@@ -84,12 +84,13 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             await _dbContext.AddRangeAsync(events, events.EventDetails);
             await _dbContext.SaveChangesAsync();
 
-            var url = Url.Action("EventDetail", "Event", new { Area = "default", events.Id }, protocol: HttpContext.Request.Scheme);
-            var message = $"<a href={url}>Click to show for new event</a>";
-            var subscribes = await _dbContext.Subscribes.ToListAsync();
-            foreach (var sub in subscribes)
+            List<Subscribe> subscribes = _dbContext.Subscribes.ToList();
+            string subject = "Creat event";
+            string url = "https://localhost:44315/Event/Details/" + events.Id;
+            string message = $"<a href={url}>New event is created,if you want to show,please to click</a>";
+            foreach (Subscribe sub in subscribes)
             {
-                await Helper.SendMessage(sub.Email, message, $" {events.CourseName} New event is created,If you want to show,to click.");
+                await Helper.SendMessage(subject, message, sub.Email);
             }
 
             return RedirectToAction("Index");

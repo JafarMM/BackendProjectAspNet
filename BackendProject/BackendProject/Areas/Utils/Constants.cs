@@ -10,8 +10,6 @@ namespace BackendProject.Areas.Utils
 
         public static string ImageFolderPath = "";
 
-        public static string EmailAdress = "mmzade01@bk.ru";
-
-        public static string EmailPassword = "dasdasda";
+         
     }
 }
