@@ -1,0 +1,50 @@
+﻿@model Blog
+@{ ViewData["Title"] = "Create"; }
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create new Blog</h4>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Description">Title</label>
+                        <input asp-for="Description" class="form-control" placeholder="Title">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name">By Who</label>
+                        <input asp-for="Name" class="form-control" placeholder="HowToApply">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BlogDetails.Description">Description</label>
+                        <textarea asp-for="BlogDetails.Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="BlogDetails.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CommentCount">Comment Count</label>
+                        <input asp-for="CommentCount" class="form-control" placeholder="AboutCourse">
+                        <span asp-validation-for="CommentCount" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Photo">Image</label>
+                        <input asp-for="Photo" class="form-control" placeholder="Certification">
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+                   
+                   
+
+                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Go back</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
