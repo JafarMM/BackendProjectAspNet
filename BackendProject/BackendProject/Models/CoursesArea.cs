@@ -16,6 +16,7 @@ namespace BackendProject.Models
         public DateTime CreationTime { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime LastModificationTime { get; set; }
+
         [NotMapped]
         public IFormFile Photo { get; set; }
         public CourseDetail CourseDetail { get; set; }

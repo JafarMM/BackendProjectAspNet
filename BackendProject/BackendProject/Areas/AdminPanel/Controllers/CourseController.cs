@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualBasic;
 using BackendProject.Areas.Utils;
-using Constants = BackendProject.Areas.Utils.Constants;
 using System.IO;
 
 namespace BackendProject.Areas.AdminPanel.Controllers
@@ -27,7 +26,8 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
         public IActionResult Index()
         {
-            var courses = _dbContext.CoursesArea.Include(x=> x.CourseDetail).ToList();
+
+            var courses = _dbContext.CoursesArea.Include(x=> x.CourseDetail).Where(x=> x.IsDeleted==false).ToList();
             return View(courses);
         }
         public IActionResult Detail(int? id)
@@ -70,7 +70,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            var fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, "course", coursesArea.Photo);
+            var fileName = await FileUtil.GenerateFileAsync(Areas.Utils.Constants.ImageFolderPath,coursesArea.Photo);
 
             coursesArea.Image = fileName;
 
@@ -146,14 +146,14 @@ namespace BackendProject.Areas.AdminPanel.Controllers
                     return View();
                 }
 
-                var path = Path.Combine(Constants.ImageFolderPath, "course", Course.Image);
+                var path = Path.Combine(Areas.Utils.Constants.ImageFolderPath, coursesArea.Image);
 
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
                 }
 
-                fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, "course", coursesArea.Photo);
+                fileName = await FileUtil.GenerateFileAsync(Areas.Utils.Constants.ImageFolderPath, "coursesArea", coursesArea.Photo);
             }
 
             var isExist = await _dbContext.CoursesArea.AnyAsync(x => x.Title == coursesArea.Title && x.Id != coursesArea.Id && x.IsDeleted == false);
@@ -187,6 +187,30 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
             return View(course);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteCourse(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var course = await _dbContext.CoursesArea.Include(x => x.CourseDetail)
+                .Where(x => x.CourseDetail.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (course == null)
+                return NotFound();
+
+            course.IsDeleted = true;
+            course.CourseDetail.IsDeleted = true;
+            
+
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
