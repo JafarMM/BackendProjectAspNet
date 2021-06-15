@@ -15,6 +15,7 @@ namespace BackendProject.Models
         public DateTime StartTime { get; set; }
         public int Duration { get; set; }
         public int ClassDuration { get; set; }
+        public bool IsDeleted { get; set; }
         public string SkillLevel { get; set; }
         public string Language { get; set; }
         public int Students { get; set; }

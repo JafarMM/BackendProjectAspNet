@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualBasic;
 using BackendProject.Areas.Utils;
+using Constants = BackendProject.Areas.Utils.Constants;
+using System.IO;
 
 namespace BackendProject.Areas.AdminPanel.Controllers
 {
@@ -41,7 +43,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             return View(courses);
         }
 
-        public IActionResult Create()
+        public async Task <IActionResult> Create()
         {
             return View();
         }
@@ -68,7 +70,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            var fileName = await FileUtil.GenerateFileAsync(Areas.Utils.Constants.ImageFolderPath, "course", coursesArea.Photo);
+            var fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, "course", coursesArea.Photo);
 
             coursesArea.Image = fileName;
 
@@ -92,5 +94,99 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var course = await _dbContext.CoursesArea.Include(x => x.CourseDetail)
+                .Where(x => x.CourseDetail.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (course == null)
+                return NotFound();
+
+            return View(course);
+          
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int? id, CoursesArea coursesArea)
+        {
+            if (id == null)
+                return NotFound();
+
+            if (id != coursesArea.Id)
+                return BadRequest();
+
+            var Course = await _dbContext.CoursesArea.Include(x => x.CourseDetail)
+                .Where(x => x.CourseDetail.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (Course == null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var fileName = Course.Image;
+
+            if (coursesArea.Photo != null)
+            {
+                if (!coursesArea.Photo.IsImage())
+                {
+                    ModelState.AddModelError("Photo", "Sechdiyiniz shekil deyildir.");
+                    return View();
+                }
+
+                if (!coursesArea.Photo.IsSizeAllowed(3000))
+                {
+                    ModelState.AddModelError("Photo", "Sechdiyiniz shekil 3mb dan artiqdir!");
+                    return View();
+                }
+
+                var path = Path.Combine(Constants.ImageFolderPath, "course", Course.Image);
+
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+
+                fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, "course", coursesArea.Photo);
+            }
+
+            var isExist = await _dbContext.CoursesArea.AnyAsync(x => x.Title == coursesArea.Title && x.Id != coursesArea.Id && x.IsDeleted == false);
+            if (isExist)
+            {
+                ModelState.AddModelError("Name", "Bu adda kurs movcuddur!");
+                return View();
+            }
+
+            Course.Image = fileName;
+            Course.Title = coursesArea.Title;
+            Course.Description = coursesArea.Description;
+            Course.CourseDetail = coursesArea.CourseDetail;
+            Course.LastModificationTime = DateTime.Now;
+
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var course = await _dbContext.CoursesArea.Include(x => x.CourseDetail)
+                .Where(x => x.CourseDetail.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (course == null)
+                return NotFound();
+
+            return View(course);
+        }
+
     }
 }

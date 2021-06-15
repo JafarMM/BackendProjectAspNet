@@ -54,9 +54,14 @@
                         <span asp-validation-for="CourseDetail.ClassDuration" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="CourseDetail.SkillLevel">Language</label>
-                        <input asp-for="CourseDetail.SkillLevel" class="form-control" placeholder="Language">
+                        <label asp-for="CourseDetail.SkillLevel">Skill Level</label>
+                        <input asp-for="CourseDetail.SkillLevel" class="form-control" placeholder="Skill Level">
                         <span asp-validation-for="CourseDetail.SkillLevel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CourseDetail.Language">Language</label>
+                        <input asp-for="CourseDetail.Language" class="form-control" placeholder="Language">
+                        <span asp-validation-for="CourseDetail.Language" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="CourseDetail.Students">Students</label>
@@ -83,3 +88,5 @@
     </div>
 </div>
 
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
