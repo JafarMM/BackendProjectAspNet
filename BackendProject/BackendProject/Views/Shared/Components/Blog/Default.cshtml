@@ -6,7 +6,7 @@
         <div class="single-blog">
 
             <div class="blog-img">
-                <a href="blog-details.html"><img src="~/img/blog/@item.Image" alt="blog"></a>
+                <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id"><img src="~/img/blog/@item.Image" alt="blog"></a>
                 <div class="blog-hover">
                     <a href="blog-details.html"><i class="fa fa-link"></i></a>
                 </div>
@@ -16,8 +16,8 @@
                     <p>@item.Name / @item.Date  <i class="fa fa-comments-o"></i> 4</p>
                 </div>
                 <div class="blog-bottom">
-                    <h2><a href="blog-details.html">@item.Description</a></h2>
-                    <a href="blog-details.html">read more</a>
+                    <h2><a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">@item.Description</a></h2>
+                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">read more</a>
                 </div>
             </div>
 

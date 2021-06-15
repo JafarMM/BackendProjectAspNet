@@ -1,5 +1,6 @@
 ﻿using BackendProject.DataAccesLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,23 @@ namespace BackendProject.Controllers
 
         public IActionResult Index()
         {
-            var blogs = _dbContext.Blogs.ToList();
+            var blogs = _dbContext.Blogs.Include(x=> x.BlogDetails).Where(x=> x.IsDeleted==false).ToList();
             return View(blogs);
                
+        }
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var blogDetail = _dbContext.blogDetails.Include(x => x.Blog).Where(x=> x.IsDeleted==false).FirstOrDefault(x => x.BlogId == id);
+
+            if (blogDetail == null)
+            {
+                return NotFound();
+            }
+            return View(blogDetail);
         }
     }
 }

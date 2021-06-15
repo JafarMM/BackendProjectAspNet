@@ -1,4 +1,5 @@
 ﻿using BackendProject.DataAccesLayer;
+using BackendProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,8 @@ using System.Threading.Tasks;
 namespace BackendProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-   
-    public class TeacherController:Controller
+
+    public class TeacherController : Controller
     {
         private readonly AppDbContext _dbContext;
 
@@ -32,7 +33,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             {
                 return NotFound();
             }
-            var teacherDetails = _dbContext.TeacherDetails.Include(x => x.Teacher).ThenInclude(x=> x.Position).FirstOrDefault(x => x.TeacherId == id);
+            var teacherDetails = _dbContext.TeacherDetails.Include(x => x.Teacher).ThenInclude(x => x.Position).FirstOrDefault(x => x.TeacherId == id);
 
             if (teacherDetails == null)
             {
@@ -41,6 +42,11 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             return View(teacherDetails);
         }
 
-
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+         
+    
     }
 }

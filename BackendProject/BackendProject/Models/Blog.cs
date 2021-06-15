@@ -11,6 +11,7 @@ namespace BackendProject.Models
         public string Image { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
+        public int CommentCount { get; set; }
         public string Description { get; set; }
         public bool IsDeleted { get; set; }
         public BlogDetails BlogDetails { get; set; }
