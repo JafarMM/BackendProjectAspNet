@@ -1,0 +1,45 @@
+﻿@model UpCommingEvents
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Create New Course</h4>
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="CourseName">Title</label>
+                    <input asp-for="CourseName" class="form-control" placeholder="Title">
+                    <span asp-validation-for="CourseName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Time">Time</label>
+                    <input asp-for="Time" class="form-control" rows="4" placeholder="StartTime" />
+                    <span asp-validation-for="Time" class="text-danger"></span>
+                </div> 
+                <div class="form-group">
+                    <label asp-for="City">Venue</label>
+                    <input asp-for="City" class="form-control" rows="4" placeholder="Venue" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EventDetails.Description">Description</label>
+                    <textarea asp-for="EventDetails.Description" class="form-control" rows="4" placeholder="Description"></textarea>
+                    <span asp-validation-for="EventDetails.Description" class="text-danger"></span>
+                </div> 
+                <div class="form-group">
+                    <label asp-for="Photo">Image</label>
+                    <input asp-for="Photo" class="form-control" accept="image/*" type="file">
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Add</button>
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

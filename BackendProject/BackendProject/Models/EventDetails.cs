@@ -10,6 +10,7 @@ namespace BackendProject.Models
     {
         public int Id { get; set; }
         public String Description { get; set; }
+        public bool IsDeleted { get; set; }
 
         [ForeignKey("UpCommingEvents")]
         public int UpCommingEventsId { get; set; }

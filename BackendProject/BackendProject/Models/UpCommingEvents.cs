@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,10 @@ namespace BackendProject.Models
         public string CourseName { get; set; }
         public string Time { get; set; }
         public string City { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime CreateTime { get; set; }
+        public DateTime LastModificationTime { get; set; }
+        public IFormFile Photo { get; set; }
         public EventDetails EventDetails { get; set; }
         public ICollection<SpeakerEventDetails> SpeakerEventDetails { get; set; }
     }
