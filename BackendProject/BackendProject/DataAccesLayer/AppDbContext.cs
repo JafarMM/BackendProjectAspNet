@@ -31,5 +31,7 @@ namespace BackendProject.DataAccesLayer
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<Speaker> Speakers { get; set; }
         public DbSet<SpeakerEventDetails> SpeakerEventDetails { get; set; }
+        public DbSet<Notice> Notices { get; set; }
+        public DbSet<NoticeVideo> NoticeVideo { get; set; }
     }
 }
