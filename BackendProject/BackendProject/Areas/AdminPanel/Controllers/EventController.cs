@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -95,6 +96,80 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var events = await _dbContext.UpCommingEvents.Include(x => x.EventDetails)
+                .Where(x => x.EventDetails.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (events == null)
+                return NotFound();
+
+            return View(events);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int? id, UpCommingEvents events)
+        {
+            if (id == null)
+                return NotFound();
+
+            if (id != events.Id)
+                return BadRequest();
+
+            var Event = await _dbContext.UpCommingEvents.Include(x => x.EventDetails)
+                .Where(x => x.EventDetails.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (Event == null)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var fileName = Event.Image;
+
+            if (events.Photo != null)
+            {
+                if (!events.Photo.IsImage())
+                {
+                    ModelState.AddModelError("Photo", "Yuklediyiniz shekil deyildir!!!");
+                    return View();
+                }
+
+                if (!events.Photo.IsSizeAllowed(3000))
+                {
+                    ModelState.AddModelError("Photo", "Shekliniz 3 mb dan artiq olchudedir!!!");
+                    return View();
+                }
+
+                var path = Path.Combine(Constants.ImageFolderPath, Event.Image);
+
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+
+                fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, events.Photo);
+            }
+
+            Event.Image = fileName;
+            Event.CourseName = events.CourseName;
+            Event.City = events.City;
+            Event.Time = events.Time;
+            Event.EventDetails = events.EventDetails;
+            Event.LastModificationTime = DateTime.Now;
+
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
