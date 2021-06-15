@@ -26,7 +26,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
         public IActionResult Index()
         {
-            var events = _dbContext.UpCommingEvents.Include(x => x.SpeakerEventDetails).Include(x => x.EventDetails).ToList();
+            var events = _dbContext.UpCommingEvents.Include(x => x.SpeakerEventDetails).Include(x => x.EventDetails).Where(x=> x.IsDeleted==false).ToList();
             return View(events);
         }
         public IActionResult Detail(int? id)
@@ -35,13 +35,13 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             {
                 return NotFound();
             }
-            var eventDetail = _dbContext.EventDetails.Include(x => x.UpCommingEvents).ThenInclude(x => x.SpeakerEventDetails).ThenInclude(x => x.Speaker).FirstOrDefault(x => x.UpCommingEventsId == id);
+            var events = _dbContext.EventDetails.Include(x => x.UpCommingEvents).ThenInclude(x => x.SpeakerEventDetails).ThenInclude(x => x.Speaker).FirstOrDefault(x => x.UpCommingEventsId == id);
 
-            if (eventDetail == null)
+            if (events == null)
             {
                 return NotFound();
             }
-            return View(eventDetail);
+            return View(events);
         }
 
         public IActionResult Create()
@@ -164,6 +164,42 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             Event.Time = events.Time;
             Event.EventDetails = events.EventDetails;
             Event.LastModificationTime = DateTime.Now;
+
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var events = await _dbContext.UpCommingEvents.Include(x => x.EventDetails)
+                .Where(x => x.EventDetails.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (events == null)
+                return NotFound();
+
+            return View(events);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteEvent(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var events = await _dbContext.UpCommingEvents.Include(x => x.EventDetails)
+                .Where(x => x.EventDetails.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (events == null)
+                return NotFound();
+
+            events.IsDeleted = true;
+            events.EventDetails.IsDeleted = true;
 
             await _dbContext.SaveChangesAsync();
 
