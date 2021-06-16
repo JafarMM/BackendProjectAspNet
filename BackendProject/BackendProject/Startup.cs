@@ -35,12 +35,7 @@ namespace BackendProject
             services.AddDbContext<AppDbContext>(options =>
             {
 
-                options.UseSqlServer(connectionString ,builder =>
-                {
-
-                    builder.MigrationsAssembly(nameof(BackendProject));
-
-                });
+                options.UseSqlServer(connectionString);
 
             });
 
