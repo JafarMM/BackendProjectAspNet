@@ -19,38 +19,38 @@ namespace BackendProject.Data
             _dbContext = dbContext;
             _userManager = userManager;
         }
-        public void SeeData()
-        {
-           _dbContext.Database.MigrateAsync();
+        //public void SeeData()
+        //{
+        //   _dbContext.Database.MigrateAsync();
 
-            #region Roles
+        //    #region Roles
 
-            var roles = new List<string>
-           {
-               Roles.AdminRole,
-               Roles.ModeratorRole,
-               Roles.MemberRole
-           };
-            foreach (var role in roles)
-            {
-                if (_dbContext.Roles.Any(x=> x.Name.ToLower() == role.ToLower()))
-                    continue;
-                _dbContext.Roles.Add(new IdentityRole(role));
-                _dbContext.SaveChanges();
-            }
+        //    var roles = new List<string>
+        //   {
+        //       Roles.AdminRole,
+        //       Roles.ModeratorRole,
+        //       Roles.MemberRole
+        //   };
+        //    foreach (var role in roles)
+        //    {
+        //        if (_dbContext.Roles.Any(x=> x.Name.ToLower() == role.ToLower()))
+        //            continue;
+        //        _dbContext.Roles.Add(new IdentityRole(role));
+        //        _dbContext.SaveChanges();
+        //    }
 
-            #endregion
+        //    #endregion
 
-            var user = new User
-            {
-                Email = "cafarmm@code.edu.az",
-                UserName = "admin",
-                Fullname = "Cefer Cefer",
+        //    var user = new User
+        //    {
+        //        Email = "cafarmm@code.edu.az",
+        //        UserName = "admin",
+        //        Fullname = "Cefer Cefer",
 
-            };
-            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, "Admin12345");
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
-        }
+        //    };
+        //    user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, "Admin12345");
+        //    _dbContext.Users.Add(user);
+        //    _dbContext.SaveChanges();
+        //}
     }
 }

@@ -116,13 +116,13 @@ namespace BackendProject.Areas.AdminPanel.Controllers
                     return View();
                 }
             }
-            var path = Path.Combine(Areas.Utils.Constants.ImageFolderPath,"blog",blog1.Image);
+            var path = Path.Combine(Constants.ImageFolderPath,"blog",blog1.Image);
 
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
             }
-            fileName = await FileUtil.GenerateFileAsync(Areas.Utils.Constants.ImageFolderPath, blog.Photo);
+            fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, "blog", blog.Photo);
 
             var isExist = await _dbContext.Blogs.AnyAsync(x => x.Description == blog.Description && x.Id != blog.Id && x.IsDeleted == false);
             if (isExist)

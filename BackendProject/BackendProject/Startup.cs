@@ -85,7 +85,7 @@ namespace BackendProject
             });
 
             var dataInitializer = new DataInitializer(dbContext ,userManager);
-             dataInitializer.SeeData();
+             //dataInitializer.SeeData();
         }
     }
 }
