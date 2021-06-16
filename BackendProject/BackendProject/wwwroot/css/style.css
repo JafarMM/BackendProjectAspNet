@@ -894,8 +894,12 @@ textarea {
 .search ul {
     visibility: visible;
     opacity: 1;
-    top: 100px;
-    display: none;
+    top: 100px; 
+}
+#searchResult{
+    width:216px;
+    height:263px;
+    background-color:white;
 }
 .search ul li i {
     font-size: 14px !important;

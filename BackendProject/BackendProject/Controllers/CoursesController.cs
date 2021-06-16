@@ -20,7 +20,7 @@ namespace BackendProject.Controllers
 
         public IActionResult Index()
         {
-            var courses = _dbContext.CoursesArea.Include(x => x.CourseDetail).ToList();
+            var courses = _dbContext.CoursesArea.Include(x => x.CourseDetail).Where(x => x.IsDeleted == false && x.CourseDetail.IsDeleted == false).ToList();
 
             return View(courses);
         }

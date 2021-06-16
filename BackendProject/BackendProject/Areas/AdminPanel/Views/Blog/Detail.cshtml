@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    BlogDetails blogDetails = Model;
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Blog Name : @blogDetails.Blog.Description</h4>
+                <p>
+                    <img src="~/img/blog/@blogDetails.Blog.Image" alt="course">
+                </p>
+                <p>
+                    Description :  @blogDetails.Description
+                </p>
+                <p>
+                    Date :  @blogDetails.Blog.Date
+                </p>
+                <p>
+                    Author : @blogDetails.Blog.Name 
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <a asp-action="Index" class="btn-btn-primary">Go to Back</a>
+</div>

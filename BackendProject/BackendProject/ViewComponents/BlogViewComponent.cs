@@ -19,7 +19,7 @@ namespace BackendProject.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var blogs = await _dbContext.Blogs.ToListAsync();
+            var blogs = await _dbContext.Blogs.Where(x=> x.IsDeleted==false).ToListAsync();
 
             return View(blogs);
         }

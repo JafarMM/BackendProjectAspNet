@@ -20,6 +20,7 @@ namespace BackendProject.Models
         public string Mail { get; set; }
         public string Phone { get; set; }
         public string Skype { get; set; }
+        public bool IsDeleted { get; set; }
         public int SkillPercent { get; set; }
         public int SkillPercentDesign { get; set; }
         public int SkillPercentTeamLeader { get; set; }

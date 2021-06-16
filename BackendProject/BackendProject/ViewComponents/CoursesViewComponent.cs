@@ -19,7 +19,7 @@ namespace BackendProject.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var courses = await _dbContext.CoursesArea.Include(x=> x.CourseDetail).OrderByDescending(x=> x.Id).ToListAsync();
+            var courses = await _dbContext.CoursesArea.Include(x=> x.CourseDetail).Where(x=> x.IsDeleted==false).OrderByDescending(x=> x.Id).ToListAsync();
 
             return View(courses);
         }

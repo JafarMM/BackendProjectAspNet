@@ -145,5 +145,17 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        public async Task <IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var courses = await _dbContext.blogDetails.Include(x => x.Blog).FirstOrDefaultAsync(x => x.BlogId == id);
+
+            if (courses == null)
+                return NotFound();
+
+            return View(courses);
+        }
     }
 }

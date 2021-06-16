@@ -16,21 +16,20 @@
     });
 
     let search;
-    $(document).on("keyup", "#input-search", function () {
+    $(document).on("keyup", "#home-input-search", function () {
         search = $(this).val().trim();
 
         $("#searchResult ul").remove();
-
-        if (search.length == 0)
-            return;
-
-        $.ajax({
-            url: '/Home/Search?search=' + search,
-            type: "GET",
-            success: function (res) {
-                $("#searchResult").append(res);
-            }
-        });
+        
+        if (search.length > 0) {
+            $.ajax({
+                url: '/Home/Search?search=' + search,
+                type: "GET",
+                success: function (res) {
+                    $("#searchResult").append(res);
+                }
+            });
+        }
     });
 
 

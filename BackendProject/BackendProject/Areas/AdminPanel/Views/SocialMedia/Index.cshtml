@@ -1,7 +1,7 @@
-﻿ 
+﻿
 @{
     ViewData["Title"] = "Index";
-    List<UpCommingEvents> upCommingEvents = Model;
+    List<SocialMedia> socialMedias = Model;
 }
 
 <div class="row">
@@ -18,10 +18,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in upCommingEvents)
+                            @foreach (var item in socialMedias)
                             {
                                 <tr>
-                                    <td>@item.CourseName</td>
+                                    <td>@item.Link</td>
+                                    <td><i class="@item.Icon"></i></td>
                                     <td>
                                         <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary">Detail</a>
                                         <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a>

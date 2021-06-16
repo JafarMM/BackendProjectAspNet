@@ -28,7 +28,7 @@ namespace BackendProject.Controllers
             {
                 return NotFound();
             }
-            var teacherDetail = _dbContext.TeacherDetails.Include(x => x.Teacher).FirstOrDefault(x => x.TeacherId == id);
+            var teacherDetail = _dbContext.TeacherDetails.Include(x => x.Teacher).Where(x=> x.IsDeleted).FirstOrDefault(x => x.TeacherId == id);
 
             if (teacherDetail == null)
             {

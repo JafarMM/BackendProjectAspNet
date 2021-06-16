@@ -77,7 +77,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             var isExist = await _dbContext.CoursesArea.AnyAsync(x => x.Title == coursesArea.Title && x.IsDeleted == false);
             if (isExist)
             {
-                ModelState.AddModelError("Name", "Bu adda kurs vardir");
+                ModelState.AddModelError("Name", "Bu adda kurs var!!!");
                 return View();
             }
 

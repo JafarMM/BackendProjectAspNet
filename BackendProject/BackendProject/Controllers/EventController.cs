@@ -19,7 +19,7 @@ namespace BackendProject.Controllers
 
         public IActionResult Index()
         {
-            var events = _dbContext.UpCommingEvents.Include(x=> x.SpeakerEventDetails).Include(x=>x.EventDetails).ToList();
+            var events = _dbContext.UpCommingEvents.Include(x=> x.SpeakerEventDetails).Include(x=>x.EventDetails).Where(x => x.IsDeleted == false).ToList();
             return View(events);
         }
 
