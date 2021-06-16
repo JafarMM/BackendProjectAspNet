@@ -37,5 +37,18 @@ namespace BackendProject.Controllers
             }
             return View(courseDetail);
         }
+
+        public async Task<IActionResult> Search(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return NotFound();
+            }
+
+            var courses = await _dbContext.CoursesArea.Where(x => x.IsDeleted == false && x.Title.Contains(search.ToLower()))
+                .OrderByDescending(x => x.LastModificationTime).ToListAsync();
+
+            return PartialView("_CourseSearchPartial", courses);
+        }
     }
 }

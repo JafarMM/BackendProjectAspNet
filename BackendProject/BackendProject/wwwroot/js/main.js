@@ -32,6 +32,22 @@
         }
     });
 
+     let coursesearch
+    $(document).on("keyup", "#course-input-search", function () {
+        search = $(this).val().trim();
+
+        $("#searchResultCourse ul").remove();
+
+        if (search.length > 0) {
+            $.ajax({
+                url: '/Course/Search?search=' + search,
+                type: "GET",
+                success: function (res) {
+                    $("#searchResultCourse").append(res);
+                }
+            });
+        }
+    });
 
 
 /*------------------------------------

@@ -1,0 +1,14 @@
+﻿
+@{
+    List<CoursesArea> courses = Model;
+}
+<ul>
+    @foreach (CoursesArea item in Model)
+    {
+        <li>
+            <a asp-controller="Courses" asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
+        </li>
+
+    }
+</ul>
+

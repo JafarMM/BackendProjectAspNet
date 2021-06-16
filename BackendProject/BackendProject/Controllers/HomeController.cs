@@ -73,18 +73,17 @@ namespace BackendProject.Controllers
                 .Where(x => x.Name.ToLower().Contains(search.ToLower())).Take(4).ToList();
             var events = _dbContext.UpCommingEvents.Include(x => x.SpeakerEventDetails).Include(x => x.EventDetails).OrderByDescending(x => x.Id)
                 .Where(x => x.CourseName.ToLower().Contains(search.ToLower())).Take(4).ToList();
-
+          
             var searchViewModel = new SearchViewModel
             {
                 
                 Courses=courses,
                 Blogs=blogs,
                 Teachers=teachers,
-                Events=events
-
+                Events=events,
+               
             };
              
-
             return PartialView("_SearchGlobalPartial", searchViewModel);
         }
 
