@@ -145,6 +145,19 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var blog = await _dbContext.Blogs.Include(x => x.BlogDetails)
+                .Where(x => x.IsDeleted == false)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            if (blog == null)
+                return NotFound();
+
+            return View(blog);
+        }
         public async Task <IActionResult> Detail(int? id)
         {
             if (id == null)

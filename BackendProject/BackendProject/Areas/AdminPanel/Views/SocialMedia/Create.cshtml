@@ -1,0 +1,49 @@
+﻿@model SocialMedia
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create new Social Media</h4>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Link">Link</label>
+                        <input asp-for="Link" class="form-control" placeholder="Link">
+                        <span asp-validation-for="Link" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icon">Icon</label>
+                        <input asp-for="Icon" class="form-control" placeholder="Icon">
+                        <span asp-validation-for="Icon" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="teacherInput">
+                        <label>Teachers</label>
+                        <select class="form-control" name="TeacherId" id="teacher">
+                            @foreach (Teacher item in ViewBag.Teachers)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Go back</a>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h4>Icons</h4>
+                @foreach (var icon in ViewBag.SocialICon)
+                {
+                    <div>
+                        <span>@icon.key -> @icon.Value</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

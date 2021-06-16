@@ -26,6 +26,18 @@ namespace BackendProject.Areas.AdminPanel.Controllers
             return View(slider);
         }
 
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var slider = await _dbContext.Slider.FindAsync(id);
+            if (id == null)
+                return NotFound();
+
+            return View(slider);
+        }
+
         public IActionResult Create()
         {
             return View();
