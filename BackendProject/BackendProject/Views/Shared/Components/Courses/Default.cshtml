@@ -20,7 +20,7 @@
                 <div class="course-content">
                     <h3><a href="course-details.html">@item.Title</a></h3>
                     <p>@item.Description</p>
-                    <a class="default-btn" href="course-details.html">read more</a>
+                    <a class="default-btn" asp-action="Details" asp-route-id="@item.Id">read more</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 ﻿using BackendProject.DataAccesLayer;
+using BackendProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,12 +26,13 @@ namespace BackendProject.Controllers
         }
         public IActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();
             }
             var blogDetail = _dbContext.blogDetails.Include(x => x.Blog).Where(x=> x.IsDeleted==false).FirstOrDefault(x => x.BlogId == id);
-
+           
             if (blogDetail == null)
             {
                 return NotFound();

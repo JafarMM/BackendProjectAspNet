@@ -40,7 +40,7 @@
 
         if (search.length > 0) {
             $.ajax({
-                url: '/Course/Search?search=' + search,
+                url: '/Courses/Search?search=' + search,
                 type: "GET",
                 success: function (res) {
                     $("#searchResultCourse").append(res);
