@@ -24,6 +24,18 @@ namespace BackendProject.Controllers
             return View(blogs);
                
         }
+        public async Task<IActionResult> Search(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return NotFound();
+            }
+
+            var blog = await _dbContext.Blogs.Where(x => x.IsDeleted == false && x.Description.Contains(search.ToLower()))
+                .OrderByDescending(x => x.LastModificationTime).ToListAsync();
+
+            return PartialView("_SearchBlogPartial", blog);
+        }
         public IActionResult Details(int? id)
         {
             

@@ -1542,6 +1542,7 @@ textarea {
 }
 .event-date{
     float: left;
+    width:250px;
     background: #2C2B5E;
     margin-right: 20px;
     -webkit-transition: all 0.5s ease 0s;

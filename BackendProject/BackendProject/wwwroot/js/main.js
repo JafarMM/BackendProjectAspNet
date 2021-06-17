@@ -49,6 +49,23 @@
         }
     });
 
+    let blogsearch
+    $(document).on("keyup", "#blog-input-search", function () {
+        search = $(this).val().trim();
+
+        $("#searchResultBlog ul").remove();
+
+        if (search.length > 0) {
+            $.ajax({
+                url: '/Blog/Search?search=' + search,
+                type: "GET",
+                success: function (res) {
+                    $("#searchResultBlog").append(res);
+                }
+            });
+        }
+    });
+
     let eventsearch
     $(document).on("keyup", "#event-input-search", function () {
         search = $(this).val().trim();

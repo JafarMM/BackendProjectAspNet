@@ -27,6 +27,18 @@
 <div class="blog-area pt-150 pb-150">
     <div class="container">
         <div class="row">
+            <div class="col-xs-12">
+                <div class="course-title">
+                    <h3>search Blog</h3>
+                </div>
+                <div class="course-form">
+                    <form id="search" action="#">
+                        <input type="search" id="blog-input-search" placeholder="Search..." name="search" />
+                        <button type="submit">search</button>
+                    </form>
+                    <div id="searchResultBlog"></div>
+                </div>
+            </div>
             @await Component.InvokeAsync("Blog")
         </div>
         <div class="row">

@@ -1,0 +1,14 @@
+﻿
+@{
+    List<Blog> courses = Model;
+}
+<ul>
+    @foreach (Blog item in Model)
+    {
+        <li>
+            <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.Id">@item.Description</a>
+        </li>
+
+    }
+</ul>
+
