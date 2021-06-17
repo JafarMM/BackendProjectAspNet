@@ -1,5 +1,6 @@
 ﻿using BackendProject.Areas.AdminPanel.Utils;
 using BackendProject.Areas.Utils;
+using BackendProject.Data;
 using BackendProject.DataAccesLayer;
 using BackendProject.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace BackendProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-  
+    //[Authorize(Roles = Roles.AdminRole)]
     public class EventController : Controller
     {
         private readonly AppDbContext _dbContext;

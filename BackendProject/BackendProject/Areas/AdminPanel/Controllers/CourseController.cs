@@ -10,11 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualBasic;
 using BackendProject.Areas.Utils;
 using System.IO;
+using BackendProject.Data;
 
 namespace BackendProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    
+    //[Authorize(Roles = Roles.AdminRole)]
     public class CourseController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -45,6 +46,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 
         public async Task <IActionResult> Create()
         {
+            var categories = await _dbContext.Categories.Where(x => x.IsDeleted == false).ToListAsync();
             return View();
         }
 

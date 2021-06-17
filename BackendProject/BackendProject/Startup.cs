@@ -1,3 +1,4 @@
+using BackendProject.Areas.Utils;
 using BackendProject.Data;
 using BackendProject.DataAccesLayer;
 using BackendProject.Models;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,9 +21,11 @@ namespace BackendProject
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _environment;
+        public Startup(IConfiguration configuration,IWebHostEnvironment environment)
         {
             _configuration = configuration;
+            _environment = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -49,6 +53,10 @@ namespace BackendProject
 
              }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
+
+            services.AddControllersWithViews();
+
+            Constants.ImageFolderPath = Path.Combine(_environment.WebRootPath, "img");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,11 +74,9 @@ namespace BackendProject
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseRouting(); 
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

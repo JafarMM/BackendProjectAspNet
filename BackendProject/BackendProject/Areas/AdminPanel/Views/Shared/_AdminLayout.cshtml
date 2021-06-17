@@ -233,10 +233,12 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/forms/basic_elements.html">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
-                            <span class="menu-title">Form elements</span>
-                        </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" asp-area="AdminPanel" asp-controller="User" asp-action="Index">User List</a></li>
+                                
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">

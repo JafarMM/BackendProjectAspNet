@@ -1,4 +1,5 @@
-﻿using BackendProject.Models;
+﻿using BackendProject.Data;
+using BackendProject.Models;
 using BackendProject.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,7 +72,7 @@ namespace BackendProject.Controllers
             var newUser = new User
             {
                 UserName = register.Username,
-                Fullname = register.Fullname,
+                FullName = register.Fullname,
                 Email = register.Email
             };
 
@@ -85,6 +86,7 @@ namespace BackendProject.Controllers
                 }
                 return View();
             }
+            await _userManager.AddToRoleAsync(newUser, Roles.MemberRole);
             await _signInManager.SignInAsync(newUser, true);
 
             return RedirectToAction("Index", "Home");

@@ -1,6 +1,8 @@
 ﻿using BackendProject.Areas.Utils;
+using BackendProject.Data;
 using BackendProject.DataAccesLayer;
 using BackendProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 namespace BackendProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    //[Authorize(Roles = Roles.AdminRole)]
     public class BlogController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -115,16 +118,16 @@ namespace BackendProject.Areas.AdminPanel.Controllers
                     ModelState.AddModelError("Photo", "Yuklediyiniz sheklin hecmi 4 mb dan az olmalidir!");
                     return View();
                 }
-            }
-            var path = Path.Combine(Constants.ImageFolderPath,"blog",blog1.Image);
+                var path = Path.Combine(Constants.ImageFolderPath,"blog",blog1.Image);
 
-            if (System.IO.File.Exists(path))
-            {
-                System.IO.File.Delete(path);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, "blog", blog.Photo);
             }
-            fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, "blog", blog.Photo);
 
-            var isExist = await _dbContext.Blogs.AnyAsync(x => x.Description == blog.Description && x.Id != blog.Id && x.IsDeleted == false);
+            var isExist = await _dbContext.Blogs.AnyAsync(x => x.Name == blog.Name && x.Id != blog.Id && x.IsDeleted == false);
             if (isExist)
             {
                 ModelState.AddModelError("Name", "Bu adda blog vardir");

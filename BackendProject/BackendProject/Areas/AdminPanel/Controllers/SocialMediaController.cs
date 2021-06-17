@@ -1,5 +1,7 @@
-﻿using BackendProject.DataAccesLayer;
+﻿using BackendProject.Data;
+using BackendProject.DataAccesLayer;
 using BackendProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 namespace BackendProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    //[Authorize(Roles = Roles.AdminRole)]
     public class SocialMediaController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -22,11 +25,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
         public async Task <IActionResult> Index()
         {
             var teachers = await _dbContext.Teachers.Include(x=> x.SocialMedias).Where(x=> x.IsDeleted==false).ToListAsync();
-            return View();
-        }
-        public async Task<IActionResult> Detail()
-        {
-            return View();
+            return View(teachers);
         }
 
         public async Task<IActionResult> Detail(int? id)

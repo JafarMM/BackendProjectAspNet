@@ -18,6 +18,7 @@ namespace BackendProject.Models
         public bool IsDeleted { get; set; }
         public DateTime CreateTime { get; set; }
         public DateTime LastModificationTime { get; set; }
+        public ICollection<EventCategory> EventCategories { get; set; }
 
         [NotMapped]
         public IFormFile Photo { get; set; }

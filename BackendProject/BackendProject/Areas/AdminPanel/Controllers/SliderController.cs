@@ -1,6 +1,8 @@
 ﻿using BackendProject.Areas.Utils;
+using BackendProject.Data;
 using BackendProject.DataAccesLayer;
 using BackendProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 namespace BackendProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    //[Authorize(Roles = Roles.AdminRole)]
     public class SliderController : Controller
     {
         private readonly AppDbContext _dbContext;

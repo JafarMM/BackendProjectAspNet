@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace BackendProject.Models
         public ICollection<SocialMedia> SocialMedias { get; set; }
         public bool IsDeleted { get; set; }
         public int? PositionId { get; set; }
+
+        [NotMapped]
+        public IFormFile Photo { get; set; }
         public Position Position { get; set; }
         public TeacherDetails TeacherDetails { get; set; }
 

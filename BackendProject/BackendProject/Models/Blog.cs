@@ -21,6 +21,7 @@ namespace BackendProject.Models
         public string Description { get; set; }
         public bool IsDeleted { get; set; }
         public BlogDetails BlogDetails { get; set; }
+        public ICollection<BlogCategory> BlogCategories { get; set; }
 
     }
 }

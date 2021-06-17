@@ -46,7 +46,7 @@ namespace BackendProject.Data
             {
                 Email = "cafarmm@code.edu.az",
                 UserName = "admin",
-                Fullname = "Cefer Cefer",
+                FullName = "Cefer Cefer",
 
             };
             if(await _userManager.FindByEmailAsync(user.Email) == null)

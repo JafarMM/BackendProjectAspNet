@@ -24,7 +24,7 @@ namespace BackendProject.Controllers
 
             return View(courses);
         }
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {

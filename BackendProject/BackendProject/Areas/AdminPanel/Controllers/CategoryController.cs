@@ -1,4 +1,5 @@
-﻿using BackendProject.DataAccesLayer;
+﻿using BackendProject.Data;
+using BackendProject.DataAccesLayer;
 using BackendProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace BackendProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
 
-    //[Authorize(Roles = RoleConstant.Admin)]
+    //[Authorize(Roles = Roles.AdminRole)]
     public class CategoryController : Controller
     {
 
