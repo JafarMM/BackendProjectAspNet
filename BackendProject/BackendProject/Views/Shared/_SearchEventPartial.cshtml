@@ -1,0 +1,14 @@
+﻿
+@{
+    List<UpCommingEvents> events = Model;
+}
+<ul>
+    @foreach (UpCommingEvents item in Model)
+    {
+        <li>
+            <a asp-controller="Event" asp-action="Details" asp-route-id="@item.Id">@item.CourseName</a>
+        </li>
+
+    }
+</ul>
+

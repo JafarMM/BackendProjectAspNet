@@ -31,6 +31,10 @@ namespace BackendProject.DataAccesLayer
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<Speaker> Speakers { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CourseCategory> CourseCategories { get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
+        public DbSet<EventCategory> EventCategories { get; set; }
         public DbSet<SpeakerEventDetails> SpeakerEventDetails { get; set; }
         public DbSet<Notice> Notices { get; set; }
         public DbSet<NoticeVideo> NoticeVideo { get; set; }

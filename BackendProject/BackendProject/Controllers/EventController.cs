@@ -51,5 +51,17 @@ namespace BackendProject.Controllers
             }
             return View(speakerEventDetails);
         }
+        public async Task<IActionResult> Search(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return NotFound();
+            }
+
+            var events = await _dbContext.UpCommingEvents.Where(x => x.IsDeleted == false && x.CourseName.Contains(search.ToLower()))
+                .OrderByDescending(x => x.LastModificationTime).ToListAsync();
+
+            return PartialView("_SearchEventPartial", events);
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace BackendProject.Controllers
             var courses = await _dbContext.CoursesArea.Where(x => x.IsDeleted == false && x.Title.Contains(search.ToLower()))
                 .OrderByDescending(x => x.LastModificationTime).ToListAsync();
 
-            return PartialView("_CourseSearchPartial", courses);
+            return PartialView("_SearchCoursePartial", courses);
         }
     }
 }

@@ -22,6 +22,17 @@ namespace BackendProject.Controllers
             var teacher = _dbContext.Teachers.Include(x => x.SocialMedias).Include(x=> x.TeacherDetails).Include(x=> x.Position).ToList();
             return View(teacher);
         }
+        public async Task<IActionResult> Search(string search)
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return NotFound();
+            }
+
+            var teachers = await _dbContext.Teachers.Where(x => x.IsDeleted == false && x.Name.Contains(search.ToLower())).ToListAsync();
+
+            return PartialView("_SearchTeacherPartial", teachers);
+        }
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +47,7 @@ namespace BackendProject.Controllers
             }
             return View(teacherDetail);
         }
+         
 
     }
 }

@@ -49,6 +49,39 @@
         }
     });
 
+    let eventsearch
+    $(document).on("keyup", "#event-input-search", function () {
+        search = $(this).val().trim();
+
+        $("#searchResultEvent ul").remove();
+
+        if (search.length > 0) {
+            $.ajax({
+                url: '/Event/Search?search=' + search,
+                type: "GET",
+                success: function (res) {
+                    $("#searchResultEvent").append(res);
+                }
+            });
+        }
+    });
+
+    let teachersearch
+    $(document).on("keyup", "#teacher-input-search", function () {
+        search = $(this).val().trim();
+
+        $("#searchResultTeacher ul").remove();
+
+        if (search.length > 0) {
+            $.ajax({
+                url: '/Teacher/Search?search=' + search,
+                type: "GET",
+                success: function (res) {
+                    $("#searchResultTeacher").append(res);
+                }
+            });
+        }
+    });
 
 /*------------------------------------
 	jQuery MeanMenu 

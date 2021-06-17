@@ -12,45 +12,50 @@ namespace BackendProject.Data
     public class DataInitializer
     {
         private readonly AppDbContext _dbContext;
-
         private readonly UserManager<User> _userManager;
-        public DataInitializer(AppDbContext dbContext,UserManager<User> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public DataInitializer(AppDbContext dbContext,UserManager<User> userManager,RoleManager<IdentityRole> roleManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
-        //public void SeeData()
-        //{
-        //   _dbContext.Database.MigrateAsync();
+        public async Task SeedDataAsync()
+        {
+           await _dbContext.Database.MigrateAsync();
 
-        //    #region Roles
+            #region Roles
 
-        //    var roles = new List<string>
-        //   {
-        //       Roles.AdminRole,
-        //       Roles.ModeratorRole,
-        //       Roles.MemberRole
-        //   };
-        //    foreach (var role in roles)
-        //    {
-        //        if (_dbContext.Roles.Any(x=> x.Name.ToLower() == role.ToLower()))
-        //            continue;
-        //        _dbContext.Roles.Add(new IdentityRole(role));
-        //        _dbContext.SaveChanges();
-        //    }
+            var roles = new List<string>
+           {
+              Roles.AdminRole,
+              Roles.ModeratorRole,
+              Roles.MemberRole
+           };
+            foreach (var role in roles)
+            {
+                if (await _roleManager.RoleExistsAsync(role))
+                    continue;
 
-        //    #endregion
+                await _roleManager.CreateAsync(new IdentityRole(role));
+            }
 
-        //    var user = new User
-        //    {
-        //        Email = "cafarmm@code.edu.az",
-        //        UserName = "admin",
-        //        Fullname = "Cefer Cefer",
+            #endregion
 
-        //    };
-        //    user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, "Admin12345");
-        //    _dbContext.Users.Add(user);
-        //    _dbContext.SaveChanges();
-        //}
+            var user = new User
+            {
+                Email = "cafarmm@code.edu.az",
+                UserName = "admin",
+                Fullname = "Cefer Cefer",
+
+            };
+            if(await _userManager.FindByEmailAsync(user.Email) == null)
+            {
+                await _userManager.CreateAsync(user, "Admin@123");
+                await _userManager.AddToRoleAsync(user, Roles.AdminRole);
+            }
+             
+            
+        }
     }
 }

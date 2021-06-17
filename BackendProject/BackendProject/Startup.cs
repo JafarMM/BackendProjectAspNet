@@ -52,7 +52,7 @@ namespace BackendProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,AppDbContext dbContext ,UserManager<User> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -82,10 +82,7 @@ namespace BackendProject
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            var dataInitializer = new DataInitializer(dbContext ,userManager);
-             //dataInitializer.SeeData();
+            }); 
         }
     }
 }

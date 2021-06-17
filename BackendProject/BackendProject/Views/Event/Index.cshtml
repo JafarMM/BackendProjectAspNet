@@ -26,6 +26,18 @@
 <div class="event-area three text-center pt-150 pb-150">
     <div class="container">
         <div class="row">
+            <div class="col-xs-12">
+                <div class="course-title">
+                    <h3>search event</h3>
+                </div>
+                <div class="course-form">
+                    <form id="search" action="#">
+                        <input type="search" id="event-input-search" placeholder="Search..." name="search" />
+                        <button type="submit">search</button>
+                    </form>
+                    <div id="searchResultEvent"></div>
+                </div>
+            </div>
             @foreach (var item in upCommingEvents)
             {
                 <div class="col-md-4 col-sm-6 col-xs-12">
